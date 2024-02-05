@@ -5,8 +5,10 @@ Debian:
   service: mysql
 
 Ubuntu:
-  service: mysql
+  service: mariadb
   devpkg: libmysqlclient-dev
+  serverpkg: mariadb-server
+  clientpkg: mariadb-client
   config:
     sections:
       mysqld:
@@ -14,6 +16,9 @@ Ubuntu:
         log_error: /var/log/mysql/error.log
     append: |
       !includedir /etc/mysql/conf.d/
+      # !includedir /etc/mysql/mariadb.conf.d/
+  extra_pkgs:
+    - 
 
 CentOS:
   config_directory: /etc/my.cnf.d/
@@ -26,13 +31,16 @@ CentOS:
       mysqld:
         socket: /var/lib/mysql/mysql.sock
         bind_address: 127.0.0.1
+  extra_pkgs:
+    - pkgconfig
 
 Fedora:
   serverpkg: mariadb-server
   clientpkg: mariadb
   service: mariadb
-  pythonpkg: python2-mysql
   config_directory: /etc/my.cnf.d/
+  extra_pkgs:
+    - 
 
   server_config:
     file: server.cnf
@@ -70,4 +78,5 @@ Fedora:
 Amazon:
   clientpkg: mysql
   service: mysqld
-  pythonpkg: MySQL-python
+  extra_pkgs:
+    - 

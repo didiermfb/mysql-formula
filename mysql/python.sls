@@ -15,8 +15,14 @@ mysqlclient:
 
 {%- from tpldir ~ "/map.jinja" import mysql with context %}
 
-mysql_python:
+mysql_python_extra_pkg:
   pkg.installed:
-    - name: {{ mysql.pythonpkg }}
-    - reload_modules: True
+#    - name: {{ mysql.pythonpkg }}
+    - pkgs: {{ mysql.extra_pkgs|json }}
+
+mysql_python_install:
+  pip.installed:
+    - name: {{ mysql.pip_pkg }}
+    - require:
+      - pkg: mysql_python_extra_pkg
 {% endif %}

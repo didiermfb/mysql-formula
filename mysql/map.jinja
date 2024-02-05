@@ -12,14 +12,7 @@
 {#- Retrieve the config dict only once #}
 {%- set _config = salt['config.get'](tplroot, default={}) %}
 
-{%- set py_ver_settings = {
-      2: {'pythonpkg': 'python-mysqldb'},
-      3: {'pythonpkg': 'python3-mysqldb'},
-    } %}
-
 {%- set defaults = salt['grains.filter_by'](
-      py_ver_settings,
-      default=grains.pythonversion[0],
       merge=salt['grains.filter_by'](
         default_settings,
         default=tplroot,

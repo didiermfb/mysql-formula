@@ -119,7 +119,7 @@ mysql_delete_anonymous_user_{{ host }}:
     - connection_charset: utf8
     - require:
       - service: mysqld-service-running
-      - pkg: mysql_python
+      - pkg: mysql_python_extra_pkg
 {%-       if (mysql_salt_user == mysql_root_user) and mysql_root_password %}
       - cmd: mysql_root_password
 {%-       endif %}

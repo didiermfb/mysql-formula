@@ -3,6 +3,13 @@
 ---
 Debian:
   devpkg: libmysqlclient-dev
+  serverpkg: mariadb-server
+  service: mariadb
+  clientpkg: mariadb-client
+  devpkg: libmariadbclient-dev
+  extra_pkgs:
+    - libmariadb-dev
+    - pkg-config
 
   config:
     sections:
@@ -33,11 +40,15 @@ Debian:
         key_buffer_size: 16M
     append: |
       !includedir /etc/mysql/conf.d/
+      # !includedir /etc/mysql/mariadb.conf.d/
 
 RedHat:
   service: mysqld
   clientpkg: mysql
-  pythonpkg: python3-PyMySQL
+
+  extra_pkgs:
+    - pkgconf
+
   config:
     file: /etc/my.cnf
     sections:
@@ -54,7 +65,8 @@ RedHat:
 Suse:
   serverpkg: mariadb
   clientpkg: mariadb-client
-  pythonpkg: python3-PyMySQL
+  extra_pkgs:
+    - pkg-config
 
   config:
     file: /etc/my.cnf
@@ -85,7 +97,9 @@ Arch:
   serverpkg: mariadb
   clientpkg: mariadb-clients
   service: mysqld
-  pythonpkg: mysql-python
+  extra_pkgs:
+    - pkgconf
+
   # Empty value below to be resolved, disabling the rule in the meantime
   # yamllint disable-line rule:empty-values
   dev:
@@ -130,8 +144,9 @@ Arch:
 Gentoo:
   serverpkg: dev-db/mysql
   clientpkg: dev-db/mysql
-  pythonpkg: dev-python/mysql-python
   devpkg: dev-db/mysqlced
+  extra_pkgs:
+    - 
 
   config:
     sections:
@@ -208,8 +223,9 @@ FreeBSD:
   serverpkg: mysql57-server
   clientpkg: mysql57-client
   service: mysql-server
-  pythonpkg: py38-pymysql
   devpkg: mysql57-server
+  extra_pkgs:
+    - 
 
   config:
     file: /usr/local/etc/mysql/my.cnf

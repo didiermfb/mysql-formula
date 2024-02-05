@@ -7,6 +7,7 @@ mysql:
   service: mysql
   devpkg: mysql-devel
   debconf_utils: debconf-utils
+  pip_pkg: mysqlclient
 
   config:
     file: /etc/mysql/my.cnf
